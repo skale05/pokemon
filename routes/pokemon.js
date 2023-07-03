@@ -18,5 +18,8 @@ router.get('/', (req, res) => {
 router.get('/pokemon', pokemonController.getAllPokemon);
 
 router.get('/pokemon/:id', pokemonController.getPokemonById);
+router.get('/pokemon/:id/name', pokemonController.getPokemonByIdAndName);
+router.get('/pokemon/:id/type', pokemonController.getPokemonByIdAndType);
+router.get('/pokemon/:id/base', pokemonController.getPokemonByIdAndBase);
 
 module.exports = router;
