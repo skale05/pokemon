@@ -1,21 +1,34 @@
-import React from 'react'
-
-
-
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import BattleGame from './components/BattleGame';
 
 function Home() {
+  const [pokemon, setPokemon] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://localhost:3000/pokemon')
+      .then((response) => {
+        setPokemon(response.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
+
+
   return (
     <div>
-      <div className='HeroSection'>
-        <h6>COME AND JOIN THE READING CLUB</h6>
-        <h1>Enjoy the silence</h1>
-        <h1>in our reading room</h1>
-      </div>
-
+      {pokemon.map((p) => (
+        <div key={p.id}>
+          <h2>{p.name.english}</h2>
+          <p>{p.type}</p>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`}/>
+          <button>Select for fight</button>
+          
+        </div>
+      ))}
     </div>
-
-
-  )
+  );
 }
 
-export default Home
+export default Home;
