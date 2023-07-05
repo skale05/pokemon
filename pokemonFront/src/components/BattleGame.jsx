@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
-// let jsonData = require('./pokedex.json');
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 const BattleGame = () => {
+  const { pokemonId } = useParams();
+  const [pokemonList, setPokemonList] = useState([]);
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [fightResult, setFightResult] = useState("");
+  const [remainingHP, setRemainingHP] = useState("");
 
   useEffect(() => {
     // Fetch Pokemon data from the API
@@ -11,6 +16,13 @@ const BattleGame = () => {
       try {
         const response = await fetch("http://localhost:3000/pokemon");
         const data = await response.json();
+        setPokemonList(data);
+
+        // Find the selected Pokemon based on the ID
+        const selected = data.find(
+          (pokemon) => pokemon.id === parseInt(pokemonId)
+        );
+        setSelectedPokemon(selected);
 
         // Select random Pokemons for the battle
         const randomIndex1 = Math.floor(Math.random() * data.length);
@@ -23,52 +35,45 @@ const BattleGame = () => {
     };
 
     fetchPokemonData();
-  }, []);
+  }, [pokemonId]);
 
   const handleAttack = () => {
     if (selectedPokemon) {
-      const pokemon1 = selectedPokemon;
-      const pokemon2 = getRandomPokemon();
+      const attacker = selectedPokemon;
+      const defender = getRandomPokemon(pokemonList);
 
-      let attacker, defender;
-      if (pokemon1.speed >= pokemon2.speed) {
-        attacker = pokemon1;
-        defender = pokemon2;
+      const damage = Math.max(1, attacker.base.Attack - defender.base.Defense);
+
+      defender.base.HP -= damage;
+
+      if (defender.base.HP <= 0) {
+        const result = `${defender.name.english} has fainted!`;
+        setFightResult(result);
       } else {
-        attacker = pokemon2;
-        defender = pokemon1;
-      }
-
-      const damage = Math.max(1, attacker.attack - defender.defense);
-
-      defender.hp -= damage;
-
-      if (defender.hp <= 0) {
-        console.log(`${defender.name} has fainted!`);
-      } else {
-        console.log(
-          `${attacker.name} attacked ${defender.name} and dealt ${damage} damage.`
-        );
-        console.log(`${defender.name}'s remaining HP: ${defender.hp}`);
+        const result = `${attacker.name.english} attacked ${defender.name.english} and dealt ${damage} damage.`;
+        setFightResult(result);
+        const hpResult = `${defender.name.english}'s remaining HP: ${defender.base.HP}`;
+        setRemainingHP(hpResult);
       }
 
       // Update the state to trigger a re-render
-      setPokemon1({ ...pokemon1 });
-      setPokemon2({ ...pokemon2 });
+      setPokemon2({ ...defender });
     } else {
       console.log("Please select a Pokemon before attacking.");
     }
   };
 
-  const handlePokemonSelection = (pokemon) => {
-    setSelectedPokemon(pokemon);
+  const handlePokemonSelection = (event) => {
+    const selectedPokemonId = event.target.value;
+    const selectedPokemon = pokemonList.find(
+      (pokemon) => pokemon.id === parseInt(selectedPokemonId)
+    );
+    setSelectedPokemon(selectedPokemon);
   };
 
-  // Helper function to get a random available Pokemon
-  const getRandomPokemon = () => {
-    // Replace this logic with your own implementation
-    // to get a random available Pokemon
-    return null;
+  const getRandomPokemon = (list) => {
+    const randomIndex = Math.floor(Math.random() * list.length);
+    return list[randomIndex];
   };
 
   return (
@@ -77,37 +82,42 @@ const BattleGame = () => {
       <div>
         <label>Select a Pokemon:</label>
         <select
-          value={selectedPokemon}
-          onChange={(e) => handlePokemonSelection(e.target.value)}
+          value={selectedPokemon ? selectedPokemon.id.toString() : ""}
+          onChange={handlePokemonSelection}
         >
           <option value="">-- Select Pokemon --</option>
-          {/* Render options based on available Pokemon data */}
-          {/* Replace `pokemonList` with your actual array of available Pokemon */}
           {pokemonList.map((pokemon) => (
-            <option key={pokemon.id} value={pokemon}>
-              {pokemon.name}
+            <option key={pokemon.id} value={pokemon.id}>
+              {pokemon.name.english}
             </option>
           ))}
         </select>
       </div>
-      {pokemon1 && (
+      {selectedPokemon && (
         <div>
-          <h3>{pokemon1.name.english}</h3>
-          <p>HP: {pokemon1.base.HP}</p>
+          <h3>{selectedPokemon.name.english}</h3>
+          <img
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`}
+            alt={selectedPokemon.name.english}
+          />
+          <p>HP: {selectedPokemon.base["HP"]}</p>
         </div>
       )}
       {pokemon2 && (
         <div>
           <h3>{pokemon2.name.english}</h3>
-          <p>HP: {pokemon2.base.HP}</p>
+          <img
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon2.id}.png`}
+            alt={pokemon2.name.english}
+          />
+          <p>HP: {pokemon2.base["HP"]}</p>
         </div>
       )}
-      <button
-        onClick={handleAttack}
-        disabled={!selectedPokemon || !pokemon1 || !pokemon2}
-      >
+      <button disabled={!selectedPokemon || !pokemon2} onClick={handleAttack}>
         Attack
       </button>
+      {fightResult && <p>{fightResult}</p>}
+      {remainingHP && <p>{remainingHP}</p>}
     </div>
   );
 };
