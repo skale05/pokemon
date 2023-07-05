@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const BattleGame = () => {
+  const { pokemonId } = useParams();
   const [pokemonList, setPokemonList] = useState([]);
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
@@ -14,6 +16,10 @@ const BattleGame = () => {
         const data = await response.json();
         setPokemonList(data);
 
+        // Find the selected Pokemon based on the ID
+        const selected = data.find((pokemon) => pokemon.id === parseInt(pokemonId));
+        setSelectedPokemon(selected);
+
         // Select random Pokemons for the battle
         const randomIndex1 = Math.floor(Math.random() * data.length);
         const randomIndex2 = Math.floor(Math.random() * data.length);
@@ -25,7 +31,7 @@ const BattleGame = () => {
     };
 
     fetchPokemonData();
-  }, []);
+  }, [pokemonId]);
 
   const handleAttack = () => {
     if (selectedPokemon) {
@@ -80,12 +86,14 @@ const BattleGame = () => {
       {selectedPokemon && (
         <div>
           <h3>{selectedPokemon.name.english}</h3>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`} alt={selectedPokemon.name.english} />
           <p>HP: {selectedPokemon.base['HP']}</p>
         </div>
       )}
       {pokemon2 && (
         <div>
           <h3>{pokemon2.name.english}</h3>
+          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon2.id}.png`} alt={pokemon2.name.english} />
           <p>HP: {pokemon2.base['HP']}</p>
         </div>
       )}
