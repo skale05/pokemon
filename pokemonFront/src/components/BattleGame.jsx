@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // let jsonData = require('./pokedex.json');
 const BattleGame = () => {
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
- 
+
   useEffect(() => {
     // Fetch Pokemon data from the API
     const fetchPokemonData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/pokemon');
+        const response = await fetch("http://localhost:3000/pokemon");
         const data = await response.json();
-         pokemonList = response.data;
 
         // Select random Pokemons for the battle
         const randomIndex1 = Math.floor(Math.random() * data.length);
@@ -19,7 +18,7 @@ const BattleGame = () => {
         setPokemon1(data[randomIndex1]);
         setPokemon2(data[randomIndex2]);
       } catch (error) {
-        console.log('Error fetching Pokemon data:', error);
+        console.log("Error fetching Pokemon data:", error);
       }
     };
 
@@ -57,7 +56,7 @@ const BattleGame = () => {
       setPokemon1({ ...pokemon1 });
       setPokemon2({ ...pokemon2 });
     } else {
-      console.log('Please select a Pokemon before attacking.');
+      console.log("Please select a Pokemon before attacking.");
     }
   };
 
@@ -77,7 +76,10 @@ const BattleGame = () => {
       <h2>Battle Game</h2>
       <div>
         <label>Select a Pokemon:</label>
-        <select value={selectedPokemon} onChange={(e) => handlePokemonSelection(e.target.value)}>
+        <select
+          value={selectedPokemon}
+          onChange={(e) => handlePokemonSelection(e.target.value)}
+        >
           <option value="">-- Select Pokemon --</option>
           {/* Render options based on available Pokemon data */}
           {/* Replace `pokemonList` with your actual array of available Pokemon */}
@@ -100,7 +102,10 @@ const BattleGame = () => {
           <p>HP: {pokemon2.base.HP}</p>
         </div>
       )}
-      <button onClick={handleAttack} disabled={!selectedPokemon || !pokemon1 || !pokemon2}>
+      <button
+        onClick={handleAttack}
+        disabled={!selectedPokemon || !pokemon1 || !pokemon2}
+      >
         Attack
       </button>
     </div>
