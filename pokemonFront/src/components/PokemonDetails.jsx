@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import "./Home.css";
 
 function PokemonDetails() {
   const { id } = useParams();
@@ -20,11 +21,11 @@ function PokemonDetails() {
   }, []);
 
   return (
-    <div>
+    <div className="pokemon_details">
       {pokemon && (
         <div>
           <h2>{pokemon.name.english}</h2>
-          <p>{pokemon.type}</p>
+          <p>Type: {pokemon.type}</p>
           <p>HP: {pokemon.base.HP}</p>
           <p>Attack: {pokemon.base.Attack}</p>
           <p>Speed: {pokemon.base.Speed}</p>
@@ -34,11 +35,20 @@ function PokemonDetails() {
           <img
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
             alt={pokemon.name.english}
+            className="pokemon_img"
           />
           <img
             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${pokemon.id}.png`}
             alt={pokemon.name.english}
+            className="pokemon_img"
           />
+          <div className="battlegame_button_div">
+            <Link to={`/BattleGame`}>
+              <button className="battlegame_button">
+                Go to BattleGame page
+              </button>
+            </Link>
+          </div>
         </div>
       )}
     </div>
