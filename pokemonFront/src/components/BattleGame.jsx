@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "./BattleGame.css";
 
 const BattleGame = () => {
   const { pokemonId } = useParams();
@@ -120,7 +121,7 @@ const BattleGame = () => {
   };
 
   return (
-    <div>
+    <div className="battle-game-container">
       <h2>Battle Game</h2>
       <div>
         <label>Select a Pokemon:</label>
@@ -137,26 +138,30 @@ const BattleGame = () => {
         </select>
       </div>
       {selectedPokemon && (
-        <div>
-          <h3>{selectedPokemon.name.english}</h3>
-          <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`}
-            alt={selectedPokemon.name.english}
-          />
-          <p>HP: {selectedPokemon.base["HP"]}</p>
+        <div className="pokemon-card">
+          <div className="pokemon-info">
+            <h3>{selectedPokemon.name.english}</h3>
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`}
+              alt={selectedPokemon.name.english}
+             />
+            <p>HP: {selectedPokemon.base["HP"]}</p>
+          </div>
         </div>
       )}
       {pokemon2 && (
-        <div>
-          <h3>{pokemon2.name.english}</h3>
-          <img
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon2.id}.png`}
-            alt={pokemon2.name.english}
-          />
-          <p>HP: {pokemon2.base["HP"]}</p>
+        <div className="pokemon-card">
+          <div className="pokemon-info">
+            <h3>{pokemon2.name.english}</h3>
+            <img
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon2.id}.png`}
+              alt={pokemon2.name.english}
+            />
+            <p>HP: {pokemon2.base["HP"]}</p>
+          </div>
         </div>
       )}
-      <button disabled={!selectedPokemon || !pokemon2} onClick={handleAttack}>
+      <button className="attack-button" disabled={!selectedPokemon || !pokemon2} onClick={handleAttack}>
         Attack
       </button>
       {fightResult && <p>{fightResult}</p>}
