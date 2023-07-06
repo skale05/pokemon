@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./home.jsx";
+import Home from "./components/home";
 import BattleGame from "./components/BattleGame";
 import PokemonDetails from "./components/PokemonDetails";
 
