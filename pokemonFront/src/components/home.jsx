@@ -19,7 +19,7 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <div className="home">
       <h1>Welcome to Pokémon Fight!</h1>
       <h2>Choose your Pokémon and go to the BattleGame page to fight</h2>
 
@@ -42,7 +42,7 @@ function Home() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
