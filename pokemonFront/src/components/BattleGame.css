@@ -67,6 +67,7 @@ body {
     border: none;
     border-radius: 8px;
     font-size: 26px;
+    font-family: Acme;
     cursor: pointer;
 }
 
@@ -74,6 +75,7 @@ select {
     width: 100%;
     padding: 8px;
     font-size: 16px;
+    font-family: Acme;
     border: 1px solid #f1c93b;
     border-radius: 4px;
     background-color: black;
@@ -81,7 +83,7 @@ select {
 }
 
 select option {
-
+    font-family: Acme;
     padding: 8px;
     background-color: black;
     color: #f1c93b;
