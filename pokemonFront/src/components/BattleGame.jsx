@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const BattleGame = () => {
   const { pokemonId } = useParams();
@@ -37,7 +38,33 @@ const BattleGame = () => {
     fetchPokemonData();
   }, [pokemonId]);
 
-  const handleAttack = () => {
+  // const handleAttack = () => {
+  //   if (selectedPokemon) {
+  //     const attacker = selectedPokemon;
+  //     const defender = getRandomPokemon(pokemonList);
+
+  //     const damage = Math.max(1, attacker.base.Attack - defender.base.Defense);
+
+  //     defender.base.HP -= damage;
+
+  //     if (defender.base.HP <= 0) {
+  //       const result = `${defender.name.english} has fainted!`;
+  //       setFightResult(result);
+  //     } else {
+  //       const result = `${attacker.name.english} attacked ${defender.name.english} and dealt ${damage} damage.`;
+  //       setFightResult(result);
+  //       const hpResult = `${defender.name.english}'s remaining HP: ${defender.base.HP}`;
+  //       setRemainingHP(hpResult);
+  //     }
+
+  //     // Update the state to trigger a re-render
+  //     setPokemon2({ ...defender });
+  //   } else {
+  //     console.log("Please select a Pokemon before attacking.");
+  //   }
+  // };
+
+  const handleAttack = async () => {
     if (selectedPokemon) {
       const attacker = selectedPokemon;
       const defender = getRandomPokemon(pokemonList);
@@ -58,6 +85,22 @@ const BattleGame = () => {
 
       // Update the state to trigger a re-render
       setPokemon2({ ...defender });
+
+      try {
+        // Send the game result to the server
+        const response = await axios.post(
+          "http://localhost:3000/pokemon/game/save",
+          {
+            player1: attacker.name.english,
+            player2: defender.name.english,
+            // winner: defender.base.HP <= 0 ? attacker.name.english : "",
+            winner: attacker.name.english,
+          }
+        );
+        console.log("Game result saved:", response.data);
+      } catch (error) {
+        console.log("Error saving game result:", error);
+      }
     } else {
       console.log("Please select a Pokemon before attacking.");
     }

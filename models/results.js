@@ -14,7 +14,7 @@ const resultSchema = new mongoose.Schema({
   winner: {
     type: String,
     unique: true,
-    required: true,
+    required: false,
   },
 });
 
