@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 const BattleGame = () => {
   const { pokemonId } = useParams();
@@ -7,17 +7,21 @@ const BattleGame = () => {
   const [pokemon1, setPokemon1] = useState(null);
   const [pokemon2, setPokemon2] = useState(null);
   const [selectedPokemon, setSelectedPokemon] = useState(null);
+  const [fightResult, setFightResult] = useState("");
+  const [remainingHP, setRemainingHP] = useState("");
 
   useEffect(() => {
     // Fetch Pokemon data from the API
     const fetchPokemonData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/pokemon');
+        const response = await fetch("http://localhost:3000/pokemon");
         const data = await response.json();
         setPokemonList(data);
 
         // Find the selected Pokemon based on the ID
-        const selected = data.find((pokemon) => pokemon.id === parseInt(pokemonId));
+        const selected = data.find(
+          (pokemon) => pokemon.id === parseInt(pokemonId)
+        );
         setSelectedPokemon(selected);
 
         // Select random Pokemons for the battle
@@ -26,7 +30,7 @@ const BattleGame = () => {
         setPokemon1(data[randomIndex1]);
         setPokemon2(data[randomIndex2]);
       } catch (error) {
-        console.log('Error fetching Pokemon data:', error);
+        console.log("Error fetching Pokemon data:", error);
       }
     };
 
@@ -43,24 +47,27 @@ const BattleGame = () => {
       defender.base.HP -= damage;
 
       if (defender.base.HP <= 0) {
-        console.log(`${defender.name.english} has fainted!`);
+        const result = `${defender.name.english} has fainted!`;
+        setFightResult(result);
       } else {
-        console.log(
-          `${attacker.name.english} attacked ${defender.name.english} and dealt ${damage} damage.`
-        );
-        console.log(`${defender.name.english}'s remaining HP: ${defender.base.HP}`);
+        const result = `${attacker.name.english} attacked ${defender.name.english} and dealt ${damage} damage.`;
+        setFightResult(result);
+        const hpResult = `${defender.name.english}'s remaining HP: ${defender.base.HP}`;
+        setRemainingHP(hpResult);
       }
 
       // Update the state to trigger a re-render
       setPokemon2({ ...defender });
     } else {
-      console.log('Please select a Pokemon before attacking.');
+      console.log("Please select a Pokemon before attacking.");
     }
   };
 
   const handlePokemonSelection = (event) => {
     const selectedPokemonId = event.target.value;
-    const selectedPokemon = pokemonList.find(pokemon => pokemon.id === parseInt(selectedPokemonId));
+    const selectedPokemon = pokemonList.find(
+      (pokemon) => pokemon.id === parseInt(selectedPokemonId)
+    );
     setSelectedPokemon(selectedPokemon);
   };
 
@@ -74,7 +81,10 @@ const BattleGame = () => {
       <h2>Battle Game</h2>
       <div>
         <label>Select a Pokemon:</label>
-        <select value={selectedPokemon ? selectedPokemon.id.toString() : ''} onChange={handlePokemonSelection}>
+        <select
+          value={selectedPokemon ? selectedPokemon.id.toString() : ""}
+          onChange={handlePokemonSelection}
+        >
           <option value="">-- Select Pokemon --</option>
           {pokemonList.map((pokemon) => (
             <option key={pokemon.id} value={pokemon.id}>
@@ -86,20 +96,28 @@ const BattleGame = () => {
       {selectedPokemon && (
         <div>
           <h3>{selectedPokemon.name.english}</h3>
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`} alt={selectedPokemon.name.english} />
-          <p>HP: {selectedPokemon.base['HP']}</p>
+          <img
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedPokemon.id}.png`}
+            alt={selectedPokemon.name.english}
+          />
+          <p>HP: {selectedPokemon.base["HP"]}</p>
         </div>
       )}
       {pokemon2 && (
         <div>
           <h3>{pokemon2.name.english}</h3>
-          <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon2.id}.png`} alt={pokemon2.name.english} />
-          <p>HP: {pokemon2.base['HP']}</p>
+          <img
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon2.id}.png`}
+            alt={pokemon2.name.english}
+          />
+          <p>HP: {pokemon2.base["HP"]}</p>
         </div>
       )}
       <button disabled={!selectedPokemon || !pokemon2} onClick={handleAttack}>
         Attack
       </button>
+      {fightResult && <p>{fightResult}</p>}
+      {remainingHP && <p>{remainingHP}</p>}
     </div>
   );
 };
