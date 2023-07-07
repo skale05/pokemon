@@ -1,84 +1,87 @@
 html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body {
-  background-color: #222831;
+  background-color: #393e46 !important;
 }
 
 .battle-game-container {
-  max-width: 450px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  font-size: 2rem;
-  font-family: Acme;
-  color: #f1c93b;
+  max-width: 450px !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+  text-align: center !important;
+  font-size: 2rem !important;
+  font-family: Acme !important;
+  color: #f1c93b !important;
 }
 
 .pokemon-card {
-  border: 2px solid #f1c93b;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  border: 2px solid #f1c93b !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+  margin-bottom: 20px !important;
+  margin-top: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .pokemon-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .pokemon-info:last-child {
-  margin-right: 0;
+  margin-right: 0 !important;
 }
 
 .pokemon-info img {
-  max-width: 100px;
-  height: auto;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  flex-shrink: 0;
-  align-self: center;
+  max-width: 100px !important;
+  height: auto !important;
+  margin-right: 10px !important;
+  margin-bottom: 20px !important;
+  flex-shrink: 0 !important;
+  align-self: center !important;
 }
 
 .pokemon-info h3,
 .pokemon-info p {
-  margin: 0;
-  line-height: 1;
+  margin: 0 !important;
+  line-height: 1 !important;
 }
 
 .attack-button {
-  margin-top: 20px;
-  padding: 16px 32px;
-  background-color: #4e4feb;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 26px;
-  cursor: pointer;
+  margin-top: 20px !important;
+  padding: 16px 32px !important;
+  background-color: #4e4feb !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 26px !important;
+  font-family: Acme !important;
+  cursor: pointer !important;
 }
 
 select {
-  width: 100%;
-  padding: 8px;
-  font-size: 16px;
-  border: 1px solid #f1c93b;
-  border-radius: 4px;
-  background-color: black;
-  color: #f1c93b;
+  width: 100% !important;
+  padding: 8px !important;
+  font-size: 16px !important;
+  font-family: Acme !important;
+  border: 1px solid #f1c93b !important;
+  border-radius: 4px !important;
+  background-color: black !important;
+  color: #f1c93b !important;
 }
 
 select option {
-  padding: 8px;
-  background-color: black;
-  color: #f1c93b;
+  font-family: Acme !important;
+  padding: 8px !important;
+  background-color: black !important;
+  color: #f1c93b !important;
 }

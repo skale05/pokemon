@@ -1,31 +1,33 @@
 html {
-  font-family: Acme;
-  background-color: #222831;
-  color: white;
+  font-family: Acme !important;
+  background-color: #393e46 !important;
+  color: white !important;
 }
 
 .home_body {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto;
-  background-color: #222831;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
+  grid-template-rows: auto !important;
+  background-color: #393e46 !important;
 }
 
 .pokemon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
-  font-family: Acme;
-  color: white;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-bottom: 30px !important;
+  font-family: Acme !important;
+  color: white !important;
 }
 
 h1 {
-  text-align: center;
-  color: #f1c93b;
-  font-weight: bold;
-  font-size: 55px;
-  margin-bottom: 0;
+  margin-top: 20px !important;
+  text-align: center !important;
+  color: #f1c93b !important;
+  font-weight: bold !important;
+  font-size: 55px !important;
+  margin-bottom: 10px !important;
+  font-family: Acme !important;
 }
 
 .Welcome h2 {
@@ -36,15 +38,15 @@ h1 {
 }
 
 h3 {
-  color: #f1c93b;
-  font-size: 22px;
+  color: #f1c93b !important;
+  font-size: 22px !important;
 }
 
 .battlegame_button_div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-bottom: 30px !important;
 }
 
 .details_button {
@@ -62,11 +64,11 @@ h3 {
 }
 
 .battlegame_button {
-  background-color: #f1c93b;
-  padding: 10px 20px 10px 20px;
-  font-size: 15px;
-  border: none;
-  font-family: Acme;
+  background-color: #f1c93b !important;
+  padding: 10px 20px 10px 20px !important;
+  font-size: 15px !important;
+  border: none !important;
+  font-family: Acme !important;
 }
 
 .pokemon_details {
