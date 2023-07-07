@@ -18,7 +18,7 @@ function PokemonDetails() {
       .catch((error) => {
         console.log(error.message);
       });
-  }, []);
+  }, [id]);
 
   return (
     <div className="pokemon_details">
