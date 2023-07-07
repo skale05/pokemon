@@ -30,12 +30,11 @@ h1 {
   font-family: Acme !important;
 }
 
-.home h2 {
-  text-align: center !important;
-  color: #4e4feb !important;
-  margin-bottom: 40px !important;
-  font-family: Acme !important;
-  font-size: 3rem !important;
+.Welcome h2 {
+  text-align: center;
+  color: #2a75bb;
+  background-color: #393e46;
+  padding-bottom: 5rem;
 }
 
 h3 {
@@ -51,15 +50,17 @@ h3 {
 }
 
 .details_button {
-  background-color: #4e4feb !important;
-  border: none !important;
-  font-family: Acme !important;
-  padding: 5px 10px 5px 10px !important;
-  margin-bottom: 25px !important;
-  color: white !important;
-  border-radius: 3px !important;
+  background-color: #2a75bb;
+  border: none;
+  font-family: Acme;
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 25px;
+  color: white;
+  border-radius: 3px;
+}
 
-  border: solid 0.1px #f1c93b !important;
+.home_body img {
+  width: 10rem;
 }
 
 .battlegame_button {
@@ -68,4 +69,25 @@ h3 {
   font-size: 15px !important;
   border: none !important;
   font-family: Acme !important;
+}
+
+.pokemon_details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pokemon_details h2 {
+  color: #2a75bb;
+  font-size: 2.5rem;
+}
+
+.pokemon_details p {
+  font-size: 20px;
+  color: #f1c93b;
+}
+
+.pokemon_img {
+  width: 15rem;
 }

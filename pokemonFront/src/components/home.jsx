@@ -19,9 +19,11 @@ function Home() {
   }, []);
 
   return (
-    <div className="home">
-      <h1>Welcome to Pokémon Fight!</h1>
-      <h2>Choose your Pokémon and go to the BattleGame page to fight</h2>
+    <>
+      <div className="Welcome">
+        <h1>Welcome to Pokémon Fight!</h1>
+        <h2>Choose your Pokémon and go to the BattleGame page to fight</h2>
+      </div>
 
       {/* <div className="battlegame_button_div">
           <Link to={`/BattleGame`}>
@@ -42,7 +44,7 @@ function Home() {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 

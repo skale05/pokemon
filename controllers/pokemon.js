@@ -7,7 +7,9 @@ exports.getAllPokemon = (req, res) => {
 
 exports.getPokemonById = (req, res) => {
   const id = req.params.id;
-  const pokemon = jsonData.find((p) => p.id === parseInt(id));
+  const pokemon = jsonData.find(
+    (p) => p.id === parseInt(id) || p.name.english === id
+  );
 
   if (pokemon) {
     res.json(pokemon);
